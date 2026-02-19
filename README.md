@@ -220,3 +220,4 @@ AlgoQuest/
 
 ### Daily Challenge
 - `GET /api/problems/random` - Get random coding problem
+<img width="333" height="488" alt="image" src="https://github.com/user-attachments/assets/365b01ab-5d27-46a7-9ca0-acc76c97e802" />
