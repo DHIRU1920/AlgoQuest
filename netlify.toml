@@ -3,6 +3,9 @@
   command = "cd frontend && npm ci && npm run build"
   publish = "frontend/dist"
 
+[build.environment]
+  NPM_CONFIG_PRODUCTION = "false"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
