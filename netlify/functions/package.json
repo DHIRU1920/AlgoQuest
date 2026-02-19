@@ -1,0 +1,17 @@
+{
+  "name": "algquest-netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for AlgoQuest Backend",
+  "main": "api.js",
+  "dependencies": {
+    "axios": "^1.13.5",
+    "bcryptjs": "^2.4.3",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.1.0",
+    "mongoose": "^8.0.3"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}
