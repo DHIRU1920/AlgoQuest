@@ -2,6 +2,10 @@
 
 A modern MERN stack application for tracking coding interview preparation progress with a beautiful pastel-themed UI.
 
+## 📸 Dashboard Preview
+
+![AlgoQuest Dashboard](./dashboard-preview.png)
+
 ## ✨ Features
 
 ### 🎯 Core Functionality
