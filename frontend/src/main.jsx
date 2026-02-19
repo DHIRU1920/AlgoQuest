@@ -6,6 +6,9 @@ import { AuthProvider } from './context/AuthContext'
 import App from './App.jsx'
 import './index.css'
 
+// 🔥 THIS LINE FIXES THE ENTIRE UI
+document.documentElement.classList.add("dark");
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -16,13 +19,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           toastOptions={{
             duration: 4000,
             style: {
-              background: '#374151',
-              color: '#fff',
+              background: '#1e293b',
+              color: '#f8fafc',
             },
             success: {
               duration: 3000,
               iconTheme: {
-                primary: '#10b981',
+                primary: '#22c55e',
                 secondary: '#fff',
               },
             },
@@ -37,5 +40,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         />
       </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 )

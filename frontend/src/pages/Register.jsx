@@ -37,28 +37,28 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-bg px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <Brain className="h-12 w-12 text-primary-500" />
+            <Brain className="h-12 w-12 text-brand" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-100 mb-2">
-            Interview Prep Tracker
+          <h1 className="text-3xl font-bold text-brand mb-2">
+            AlgoQuest
           </h1>
-          <p className="text-gray-400">
+          <p className="text-muted">
             Start tracking your coding interview preparation
           </p>
         </div>
 
-        <div className="card p-8">
-          <h2 className="text-2xl font-semibold text-gray-100 mb-6">
+        <div className="bg-card rounded-2xl shadow-2xl p-8 border border-gray-700">
+          <h2 className="text-2xl font-semibold text-text mb-6">
             Create Account
           </h2>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-text mb-2">
                 Full Name
               </label>
               <input
@@ -67,14 +67,14 @@ const Register = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="input"
+                className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
                 placeholder="John Doe"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-text mb-2">
                 Email Address
               </label>
               <input
@@ -83,14 +83,14 @@ const Register = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="input"
+                className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
                 placeholder="you@example.com"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-text mb-2">
                 Password
               </label>
               <div className="relative">
@@ -100,7 +100,7 @@ const Register = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="input pr-10"
+                  className="w-full px-4 py-3 pr-12 bg-sidebar border border-gray-600 rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
                   placeholder="••••••••"
                   required
                   minLength="6"
@@ -108,7 +108,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-brand transition-colors"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -116,7 +116,7 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-text mb-2">
                 Confirm Password
               </label>
               <div className="relative">
@@ -126,7 +126,7 @@ const Register = () => {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="input pr-10"
+                  className="w-full px-4 py-3 pr-12 bg-sidebar border border-gray-600 rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
                   placeholder="••••••••"
                   required
                   minLength="6"
@@ -134,7 +134,7 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted hover:text-brand transition-colors"
                 >
                   {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -144,16 +144,16 @@ const Register = () => {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary w-full py-3 text-base"
+              className="w-full bg-brand text-gray-900 font-semibold py-3 px-4 rounded-xl hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-bg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-400">
+            <p className="text-muted">
               Already have an account?{' '}
-              <Link to="/login" className="text-primary-500 hover:text-primary-400 font-medium">
+              <Link to="/login" className="text-brand hover:opacity-80 font-medium transition-opacity">
                 Sign in
               </Link>
             </p>

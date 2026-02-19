@@ -124,7 +124,7 @@ const Questions = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand"></div>
       </div>
     );
   }
@@ -132,10 +132,10 @@ const Questions = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-gray-100">Questions</h1>
+        <h1 className="text-3xl font-bold text-text">Questions</h1>
         <button
           onClick={handleAddQuestion}
-          className="btn btn-primary flex items-center space-x-2"
+          className="flex items-center space-x-2 px-4 py-2 bg-brand text-gray-900 rounded-xl hover:opacity-90 transition-all duration-200"
         >
           <Plus className="h-5 w-5" />
           <span>Add Question</span>
@@ -143,23 +143,23 @@ const Questions = () => {
       </div>
 
       {/* Filters */}
-      <div className="card p-4">
+      <div className="bg-card rounded-xl shadow-lg p-4 border border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted" />
             <input
               type="text"
               placeholder="Search questions..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="input pl-10"
+              className="w-full pl-10 pr-4 py-2 bg-sidebar border border-gray-600 rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
             />
           </div>
 
           <select
             value={filterTopic}
             onChange={(e) => setFilterTopic(e.target.value)}
-            className="input"
+            className="w-full px-4 py-2 bg-sidebar border border-gray-600 rounded-xl text-text focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
           >
             {topics.map((topic) => (
               <option key={topic} value={topic}>
@@ -171,7 +171,7 @@ const Questions = () => {
           <select
             value={filterDifficulty}
             onChange={(e) => setFilterDifficulty(e.target.value)}
-            className="input"
+            className="w-full px-4 py-2 bg-sidebar border border-gray-600 rounded-xl text-text focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
           >
             {difficulties.map((difficulty) => (
               <option key={difficulty} value={difficulty}>
@@ -180,7 +180,7 @@ const Questions = () => {
             ))}
           </select>
 
-          <div className="text-gray-400 flex items-center justify-center">
+          <div className="text-muted flex items-center justify-center">
             <span>{filteredQuestions.length} questions</span>
           </div>
         </div>
@@ -188,12 +188,12 @@ const Questions = () => {
 
       {/* Questions List */}
       {filteredQuestions.length === 0 ? (
-        <div className="card p-12 text-center">
-          <BookOpen className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-100 mb-2">
+        <div className="bg-card rounded-xl shadow-lg p-12 text-center border border-gray-700">
+          <BookOpen className="h-16 w-16 text-muted mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-text mb-2">
             {questions.length === 0 ? 'No questions yet' : 'No questions found'}
           </h3>
-          <p className="text-gray-400 mb-6">
+          <p className="text-muted mb-6">
             {questions.length === 0
               ? 'Start adding questions to track your progress'
               : 'Try adjusting your filters or search terms'}
@@ -201,7 +201,7 @@ const Questions = () => {
           {questions.length === 0 && (
             <button
               onClick={handleAddQuestion}
-              className="btn btn-primary"
+              className="px-4 py-2 bg-brand text-gray-900 rounded-xl hover:opacity-90 transition-all duration-200"
             >
               Add Your First Question
             </button>
@@ -210,20 +210,20 @@ const Questions = () => {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {filteredQuestions.map((question) => (
-            <div key={question._id} className="card p-6 hover:shadow-xl transition-shadow">
+            <div key={question._id} className="bg-card rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 border border-gray-700">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-100 mb-2">
+                  <h3 className="text-lg font-semibold text-text mb-2">
                     {question.title}
                   </h3>
                   <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="px-2 py-1 text-xs font-medium bg-primary-900/20 text-primary-400 border border-primary-800 rounded">
+                    <span className="px-2 py-1 text-xs font-medium bg-sand text-gray-900 border border-gray-600 rounded-xl">
                       {question.topic}
                     </span>
-                    <span className={`px-2 py-1 text-xs font-medium border rounded ${getDifficultyColor(question.difficulty)}`}>
+                    <span className={`px-2 py-1 text-xs font-medium border rounded-xl ${getDifficultyColor(question.difficulty)}`}>
                       {question.difficulty}
                     </span>
-                    <span className="px-2 py-1 text-xs font-medium bg-gray-700 text-gray-300 border border-gray-600 rounded">
+                    <span className="px-2 py-1 text-xs font-medium bg-sidebar text-muted border border-gray-600 rounded-xl">
                       {question.platform}
                     </span>
                   </div>
@@ -231,13 +231,13 @@ const Questions = () => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleEditQuestion(question)}
-                    className="text-gray-400 hover:text-primary-400 transition-colors"
+                    className="text-muted hover:text-brand transition-colors"
                   >
                     <Edit2 className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteQuestion(question._id)}
-                    className="text-gray-400 hover:text-red-400 transition-colors"
+                    className="text-muted hover:text-red-400 transition-colors"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -245,12 +245,12 @@ const Questions = () => {
               </div>
 
               {question.notes && (
-                <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                <p className="text-muted text-sm mb-4 line-clamp-3">
                   {question.notes}
                 </p>
               )}
 
-              <div className="flex items-center text-gray-500 text-sm">
+              <div className="flex items-center text-muted text-sm">
                 <Calendar className="h-4 w-4 mr-1" />
                 <span>
                   Solved on {new Date(question.solvedDate).toLocaleDateString()}

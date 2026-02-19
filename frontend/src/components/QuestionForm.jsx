@@ -42,14 +42,14 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-card rounded-2xl shadow-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto border border-gray-700">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-100">
+          <h2 className="text-xl font-semibold text-text">
             {question ? 'Edit Question' : 'Add Question'}
           </h2>
           <button
             onClick={onCancel}
-            className="text-gray-400 hover:text-gray-300 transition-colors"
+            className="text-muted hover:text-text transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -57,7 +57,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="title" className="block text-sm font-medium text-text mb-2">
               Question Title *
             </label>
             <input
@@ -66,14 +66,14 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className="input"
+              className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
               placeholder="e.g., Two Sum"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="topic" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="topic" className="block text-sm font-medium text-text mb-2">
               Topic *
             </label>
             <select
@@ -81,7 +81,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
               name="topic"
               value={formData.topic}
               onChange={handleChange}
-              className="input"
+              className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
               required
             >
               {topics.map((topic) => (
@@ -93,7 +93,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
           </div>
 
           <div>
-            <label htmlFor="difficulty" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="difficulty" className="block text-sm font-medium text-text mb-2">
               Difficulty *
             </label>
             <select
@@ -101,7 +101,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
               name="difficulty"
               value={formData.difficulty}
               onChange={handleChange}
-              className="input"
+              className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
               required
             >
               {difficulties.map((difficulty) => (
@@ -113,7 +113,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
           </div>
 
           <div>
-            <label htmlFor="platform" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="platform" className="block text-sm font-medium text-text mb-2">
               Platform *
             </label>
             <select
@@ -121,7 +121,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
               name="platform"
               value={formData.platform}
               onChange={handleChange}
-              className="input"
+              className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
               required
             >
               {platforms.map((platform) => (
@@ -133,7 +133,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
           </div>
 
           <div>
-            <label htmlFor="solvedDate" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="solvedDate" className="block text-sm font-medium text-text mb-2">
               Solved Date *
             </label>
             <input
@@ -142,13 +142,13 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
               name="solvedDate"
               value={formData.solvedDate}
               onChange={handleChange}
-              className="input"
+              className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="notes" className="block text-sm font-medium text-text mb-2">
               Notes
             </label>
             <textarea
@@ -156,7 +156,7 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
               name="notes"
               value={formData.notes}
               onChange={handleChange}
-              className="input resize-none"
+              className="w-full px-4 py-3 bg-sidebar border border-gray-600 rounded-xl text-text placeholder-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-200 resize-none"
               rows="4"
               placeholder="Add your thoughts, approach, or key insights..."
             />
@@ -166,13 +166,13 @@ const QuestionForm = ({ question, onSubmit, onCancel }) => {
             <button
               type="button"
               onClick={onCancel}
-              className="btn btn-secondary flex-1"
+              className="flex-1 px-4 py-3 border border-brand text-brand rounded-xl hover:bg-brand hover:text-gray-900 transition-all duration-200"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary flex-1"
+              className="flex-1 px-4 py-3 bg-brand text-gray-900 rounded-xl hover:opacity-90 transition-all duration-200"
             >
               {question ? 'Update' : 'Add'} Question
             </button>
