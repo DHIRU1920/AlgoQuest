@@ -10,6 +10,7 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# API routes first
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
@@ -23,6 +24,12 @@
 [[redirects]]
   from = "/test"
   to = "/.netlify/functions/test"
+  status = 200
+
+# SPA routing - redirect all other routes to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 [environment]
