@@ -1,4 +1,6 @@
+require('dotenv').config();
 const { body, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 const { protect } = require('../../backend/middleware/auth');
 const {
   getQuestions,
@@ -7,6 +9,27 @@ const {
   deleteQuestion,
   getDashboardStats,
 } = require('../../backend/controllers/questionController');
+
+// Validation rules
+const questionValidation = [
+  body('title').trim().notEmpty().withMessage('Title is required'),
+  body('topic').isIn(['Arrays', 'Strings', 'Trees', 'Graphs', 'DP', 'DBMS', 'OS', 'CN']).withMessage('Invalid topic'),
+  body('difficulty').isIn(['Easy', 'Medium', 'Hard']).withMessage('Invalid difficulty'),
+  body('platform').isIn(['LeetCode', 'GFG', 'Codeforces', 'Other']).withMessage('Invalid platform'),
+];
+
+// Connect to MongoDB
+const connectDB = async () => {
+  try {
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect(process.env.MONGO_URI);
+      console.log("✅ MongoDB Connected");
+    }
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    throw error;
+  }
+};
 
 exports.handler = async (event, context) => {
   // Handle CORS preflight
@@ -23,6 +46,8 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    await connectDB();
+    
     const { httpMethod, path, body, headers } = event;
     const pathParts = path.split('/').filter(Boolean);
     
@@ -70,7 +95,8 @@ exports.handler = async (event, context) => {
           await getQuestions(req, res);
         }
       } else if (httpMethod === 'POST') {
-        // Validation
+        // Apply validation
+        await Promise.all(questionValidation.map(validation => validation.run(req)));
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
           res.statusCode = 400;
@@ -79,7 +105,8 @@ exports.handler = async (event, context) => {
         }
         await createQuestion(req, res);
       } else if (httpMethod === 'PUT') {
-        // Validation
+        // Apply validation
+        await Promise.all(questionValidation.map(validation => validation.run(req)));
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
           res.statusCode = 400;

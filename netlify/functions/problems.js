@@ -1,4 +1,19 @@
+require('dotenv').config();
+const mongoose = require('mongoose');
 const { getRandomEasyProblem } = require('../../backend/controllers/problemController');
+
+// Connect to MongoDB
+const connectDB = async () => {
+  try {
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect(process.env.MONGO_URI);
+      console.log("✅ MongoDB Connected");
+    }
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    throw error;
+  }
+};
 
 exports.handler = async (event, context) => {
   // Handle CORS preflight
@@ -15,6 +30,8 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    await connectDB();
+    
     const { httpMethod, path } = event;
     const pathParts = path.split('/').filter(Boolean);
     

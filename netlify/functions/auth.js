@@ -1,5 +1,32 @@
+require('dotenv').config();
 const { body, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 const { register, login } = require('../../backend/controllers/authController');
+
+// Validation rules
+const registerValidation = [
+  body('name').trim().notEmpty().withMessage('Name is required'),
+  body('email').isEmail().withMessage('Please provide a valid email'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+];
+
+const loginValidation = [
+  body('email').isEmail().withMessage('Please provide a valid email'),
+  body('password').notEmpty().withMessage('Password is required'),
+];
+
+// Connect to MongoDB
+const connectDB = async () => {
+  try {
+    if (mongoose.connection.readyState === 0) {
+      await mongoose.connect(process.env.MONGO_URI);
+      console.log("✅ MongoDB Connected");
+    }
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error.message);
+    throw error;
+  }
+};
 
 exports.handler = async (event, context) => {
   // Handle CORS preflight
@@ -16,6 +43,8 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    await connectDB();
+    
     const { httpMethod, path, body } = event;
     const pathParts = path.split('/').filter(Boolean);
     
@@ -46,7 +75,8 @@ exports.handler = async (event, context) => {
 
     // Route handling
     if (pathParts.includes('register') && httpMethod === 'POST') {
-      // Validation
+      // Apply validation
+      await Promise.all(registerValidation.map(validation => validation.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         res.statusCode = 400;
@@ -55,7 +85,8 @@ exports.handler = async (event, context) => {
       }
       await register(req, res);
     } else if (pathParts.includes('login') && httpMethod === 'POST') {
-      // Validation
+      // Apply validation
+      await Promise.all(loginValidation.map(validation => validation.run(req)));
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         res.statusCode = 400;
@@ -77,7 +108,7 @@ exports.handler = async (event, context) => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ message: 'Internal server error' })
+      body: JSON.stringify({ message: 'Internal server error', error: error.message })
     };
   }
 };
