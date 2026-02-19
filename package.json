@@ -14,5 +14,13 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "axios": "^1.13.5",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.3.1",
+    "express-validator": "^7.3.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.1"
   }
 }
