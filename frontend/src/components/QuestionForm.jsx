@@ -1,0 +1,186 @@
+import React, { useState, useEffect } from 'react';
+import { X, Plus } from 'lucide-react';
+
+const QuestionForm = ({ question, onSubmit, onCancel }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    topic: 'Arrays',
+    difficulty: 'Easy',
+    platform: 'LeetCode',
+    notes: '',
+    solvedDate: new Date().toISOString().split('T')[0],
+  });
+
+  const topics = ['Arrays', 'Strings', 'Trees', 'Graphs', 'DP', 'DBMS', 'OS', 'CN'];
+  const difficulties = ['Easy', 'Medium', 'Hard'];
+  const platforms = ['LeetCode', 'GFG', 'Codeforces', 'Other'];
+
+  useEffect(() => {
+    if (question) {
+      setFormData({
+        title: question.title,
+        topic: question.topic,
+        difficulty: question.difficulty,
+        platform: question.platform,
+        notes: question.notes || '',
+        solvedDate: new Date(question.solvedDate).toISOString().split('T')[0],
+      });
+    }
+  }, [question]);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-semibold text-gray-100">
+            {question ? 'Edit Question' : 'Add Question'}
+          </h2>
+          <button
+            onClick={onCancel}
+            className="text-gray-400 hover:text-gray-300 transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-2">
+              Question Title *
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="input"
+              placeholder="e.g., Two Sum"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="topic" className="block text-sm font-medium text-gray-300 mb-2">
+              Topic *
+            </label>
+            <select
+              id="topic"
+              name="topic"
+              value={formData.topic}
+              onChange={handleChange}
+              className="input"
+              required
+            >
+              {topics.map((topic) => (
+                <option key={topic} value={topic}>
+                  {topic}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="difficulty" className="block text-sm font-medium text-gray-300 mb-2">
+              Difficulty *
+            </label>
+            <select
+              id="difficulty"
+              name="difficulty"
+              value={formData.difficulty}
+              onChange={handleChange}
+              className="input"
+              required
+            >
+              {difficulties.map((difficulty) => (
+                <option key={difficulty} value={difficulty}>
+                  {difficulty}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="platform" className="block text-sm font-medium text-gray-300 mb-2">
+              Platform *
+            </label>
+            <select
+              id="platform"
+              name="platform"
+              value={formData.platform}
+              onChange={handleChange}
+              className="input"
+              required
+            >
+              {platforms.map((platform) => (
+                <option key={platform} value={platform}>
+                  {platform}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="solvedDate" className="block text-sm font-medium text-gray-300 mb-2">
+              Solved Date *
+            </label>
+            <input
+              type="date"
+              id="solvedDate"
+              name="solvedDate"
+              value={formData.solvedDate}
+              onChange={handleChange}
+              className="input"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="notes" className="block text-sm font-medium text-gray-300 mb-2">
+              Notes
+            </label>
+            <textarea
+              id="notes"
+              name="notes"
+              value={formData.notes}
+              onChange={handleChange}
+              className="input resize-none"
+              rows="4"
+              placeholder="Add your thoughts, approach, or key insights..."
+            />
+          </div>
+
+          <div className="flex space-x-3 pt-4">
+            <button
+              type="button"
+              onClick={onCancel}
+              className="btn btn-secondary flex-1"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary flex-1"
+            >
+              {question ? 'Update' : 'Add'} Question
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default QuestionForm;
